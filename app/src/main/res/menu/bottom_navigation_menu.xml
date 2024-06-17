@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_create"
+        android:title="Create" />
+
+    <item
+        android:id="@+id/navigation_timer"
+        android:title="Timer" />
+
+    <item
+        android:id="@+id/navigation_view"
+        android:title="View" />
+
+</menu>
