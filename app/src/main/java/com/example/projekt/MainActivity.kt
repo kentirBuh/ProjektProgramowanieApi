@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_timer -> {
-                    // Handle timer navigation
+                    startActivity(Intent(this@MainActivity, TimerActivity::class.java))
                     true
                 }
                 R.id.navigation_create -> {

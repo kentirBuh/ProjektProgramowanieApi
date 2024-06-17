@@ -3,7 +3,6 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -16,6 +15,8 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Projekt"
             tools:targetApi="31">
+
+
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
@@ -25,8 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TimerActivity"/>
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeDetailActivity" />
+        <service android:name=".TimerService"/>
     </application>
 
 </manifest>
