@@ -127,6 +127,15 @@ class MainActivity : ComponentActivity() {
                 Log.i("tag1", "Recipe added")
             }
 
+            etRecipeName.getText().clear()
+            etCookingTime.getText().clear()
+            etInstructions.getText().clear()
+            for (i in 0 until ingredientsContainer.childCount) {
+                val ingredientRow = ingredientsContainer.getChildAt(i)
+                ingredientRow.findViewById<EditText>(R.id.et_ingredient_name).getText().clear()
+                ingredientRow.findViewById<EditText>(R.id.et_ingredient_quantity).getText().clear()
+                ingredientRow.findViewById<EditText>(R.id.et_ingredient_unit).getText().clear()
+            }
 
         }
 
