@@ -10,6 +10,8 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projekt.databinding.ActivityTimerBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import kotlin.math.roundToInt
 
 class TimerActivity : AppCompatActivity(){

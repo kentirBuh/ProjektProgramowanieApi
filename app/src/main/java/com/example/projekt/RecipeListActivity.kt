@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.projekt.DataBase.RecipeDao
 import com.example.projekt.DataBase.RecipeDatabase
 import com.example.projekt.Model.Recipe
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,8 +28,10 @@ class RecipeListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recipe_list)
         Log.d("afterSetContentView", "AfterSetContent")
 
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         listView = findViewById(R.id.list_recipes)
         recipeDao = RecipeDatabase.getInstance(this).recipeDao()
+
 
         lifecycleScope.launch(Dispatchers.IO) {
             Log.d("beforeDao", "This logcat happens before we get any recipes")
@@ -37,6 +41,25 @@ class RecipeListActivity : AppCompatActivity() {
                 setupListView()
             }
         }
+
+        bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_timer -> {
+                    startActivity(Intent(this@RecipeListActivity, TimerActivity::class.java))
+                    true
+                }
+                R.id.navigation_create -> {
+                    startActivity(Intent(this@RecipeListActivity, MainActivity::class.java))
+                    true
+                }
+                R.id.navigation_view -> {
+                    true
+                }
+                else -> false
+            }
+        })
+
+
     }
 
     private fun setupListView() {
