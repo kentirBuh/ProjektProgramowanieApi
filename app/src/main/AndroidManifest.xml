@@ -37,6 +37,7 @@
         <receiver android:name=".Services.AlarmReceiver" />
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeDetailActivity" />
+        <activity android:name=".ViewModels.DisplayAlarmsActivity" />
     </application>
 
 </manifest>

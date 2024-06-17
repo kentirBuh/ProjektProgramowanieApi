@@ -18,6 +18,7 @@ import com.example.projekt.DataBase.RecipeDatabase
 import com.example.projekt.Model.Ingredient
 import com.example.projekt.Model.Recipe
 import com.example.projekt.Services.createNotificationChannel
+import com.example.projekt.ViewModels.DisplayAlarmsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_timer -> {
-                    startActivity(Intent(this@MainActivity, RecipeTimer::class.java))
+                    startActivity(Intent(this@MainActivity, DisplayAlarmsActivity::class.java))
                     true
                 }
 
@@ -62,8 +63,11 @@ class MainActivity : ComponentActivity() {
                 }
 
                 R.id.navigation_view -> {
-                    startActivity(Intent(this@MainActivity, RecipeListActivity::class.java))
+                    startActivity(Intent(this@MainActivity, RecipeTimer::class.java))
                     true
+                    //uncomment and replace later
+                   // startActivity(Intent(this@MainActivity, RecipeListActivity::class.java))
+                    //true
                 }
 
                 else -> false
