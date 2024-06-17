@@ -13,6 +13,7 @@ import com.example.projekt.DataBase.IngredientDao
 import com.example.projekt.DataBase.RecipeDatabase
 import com.example.projekt.Model.Ingredient
 import com.example.projekt.Model.Recipe
+import com.example.projekt.Services.createNotificationChannel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        createNotificationChannel(this)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val etRecipeName: EditText = findViewById(R.id.et_recipe_name)
