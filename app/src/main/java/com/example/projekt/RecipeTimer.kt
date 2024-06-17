@@ -10,8 +10,10 @@ import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projekt.Model.Recipe
 import com.example.projekt.Services.ScheduleAlarm
+import com.example.projekt.Services.ScheduleAlarm.Companion.scheduleAlarm
 import com.example.projekt.Services.createNotificationChannel
 import java.util.*
+
 
 class RecipeTimer : AppCompatActivity() {
 
@@ -20,16 +22,18 @@ class RecipeTimer : AppCompatActivity() {
     private lateinit var timePicker: TimePicker
     private lateinit var submitButton: Button
 
-    private lateinit var selectedRecipe: Recipe
+    private var selectedRecipe: Recipe? = null // Initialize as nullable
+
     private lateinit var scheduleAlarm: ScheduleAlarm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_timer)
 
-        Log.d("NotificationTest", "Before notif chanel is created")
+
+        Log.d("NotificationTest", "Before notification channel is created")
         createNotificationChannel(this)
-        Log.d("NotificationTest", "After notif chanel is created")
+        Log.d("NotificationTest", "After notification channel is created")
 
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
         datePicker = findViewById(R.id.datePicker)
@@ -58,13 +62,19 @@ class RecipeTimer : AppCompatActivity() {
         }
 
         submitButton.setOnClickListener {
-            Log.d("NotificationTest", "button is clicked")
-            val calendar = Calendar.getInstance().apply {
-                set(datePicker.year, datePicker.month, datePicker.dayOfMonth,
-                    timePicker.hour, timePicker.minute, 0)
+            // Check if selectedRecipe is initialized
+            if (selectedRecipe != null) {
+                Log.d("NotificationTest", "Button is clicked")
+                val calendar = Calendar.getInstance().apply {
+                    set(datePicker.year, datePicker.month, datePicker.dayOfMonth,
+                        timePicker.hour, timePicker.minute, 0)
+                }
+                Log.d("timeInMillis", calendar.timeInMillis.toString())
+                scheduleAlarm(this@RecipeTimer, selectedRecipe!!, calendar.timeInMillis)
+            } else {
+                Log.e("NotificationTest", "Selected recipe is null")
+                // Handle the case where no recipe is selected
             }
-            Log.d("timeinMilis", calendar.timeInMillis.toString())
-            scheduleAlarm.scheduleAlarm(this, selectedRecipe, calendar.timeInMillis)
         }
     }
 }
