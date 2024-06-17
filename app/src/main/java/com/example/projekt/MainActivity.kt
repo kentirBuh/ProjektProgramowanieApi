@@ -1,6 +1,10 @@
 package com.example.projekt
 
+import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.os.Bundle
 import android.widget.Button
@@ -23,7 +27,6 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,7 +39,7 @@ class MainActivity : ComponentActivity() {
         val ingredientsContainer: LinearLayout = findViewById(R.id.ingredients_container)
         val btnAddIngredient: Button = findViewById(R.id.btn_add_ingredient)
         val btnSaveRecipe: Button = findViewById(R.id.btn_save_recipe)
-
+        requestNotificationPermission(this)
 
 
         val db = Room.databaseBuilder(
@@ -49,17 +52,20 @@ class MainActivity : ComponentActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_timer -> {
-                    startActivity(Intent(this@MainActivity, TimerActivity::class.java))
+                    startActivity(Intent(this@MainActivity, RecipeTimer::class.java))
                     true
                 }
+
                 R.id.navigation_create -> {
 
                     true
                 }
+
                 R.id.navigation_view -> {
                     startActivity(Intent(this@MainActivity, RecipeListActivity::class.java))
                     true
                 }
+
                 else -> false
             }
         })
@@ -73,12 +79,9 @@ class MainActivity : ComponentActivity() {
         btnSaveRecipe.setOnClickListener {
             val recipeName = etRecipeName.text.toString()
             val cookingTimeString = etCookingTime.text.toString()
-            val cookingTime = if (cookingTimeString.isNotEmpty())
-            {
+            val cookingTime = if (cookingTimeString.isNotEmpty()) {
                 cookingTimeString.toInt()
-            }
-            else
-            {
+            } else {
                 0
             }
             val instructions = etInstructions.text.toString()
@@ -87,7 +90,8 @@ class MainActivity : ComponentActivity() {
             for (i in 0 until ingredientsContainer.childCount) {
                 val ingredientRow = ingredientsContainer.getChildAt(i)
                 val etIngredientName: EditText = ingredientRow.findViewById(R.id.et_ingredient_name)
-                val etIngredientQuantity: EditText = ingredientRow.findViewById(R.id.et_ingredient_quantity)
+                val etIngredientQuantity: EditText =
+                    ingredientRow.findViewById(R.id.et_ingredient_quantity)
                 val etIngredientUnit: EditText = ingredientRow.findViewById(R.id.et_ingredient_unit)
 
                 val ingredientName = etIngredientName.text.toString()
@@ -98,7 +102,12 @@ class MainActivity : ComponentActivity() {
 
                 val ingredientUnit = etIngredientUnit.text.toString()
 
-                val ingredient = Ingredient(id=0,name= ingredientName, quantity =  ingredientQuantity, unit =  ingredientUnit)
+                val ingredient = Ingredient(
+                    id = 0,
+                    name = ingredientName,
+                    quantity = ingredientQuantity,
+                    unit = ingredientUnit
+                )
                 ingredients.add(ingredient)
             }
             lifecycleScope.launch(Dispatchers.IO) {
@@ -115,20 +124,24 @@ class MainActivity : ComponentActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
 
                 db.recipeDao().addRecipe(recipe)
-                Log.i("tag1","Recipe added")
+                Log.i("tag1", "Recipe added")
             }
 
 
-            etRecipeName.getText().clear()
-            etCookingTime.getText().clear()
-            etInstructions.getText().clear()
-            for (i in 0 until ingredientsContainer.childCount) {
-                val ingredientRow = ingredientsContainer.getChildAt(i)
-                ingredientRow.findViewById<EditText>(R.id.et_ingredient_name).getText().clear()
-                ingredientRow.findViewById<EditText>(R.id.et_ingredient_quantity).getText().clear()
-                ingredientRow.findViewById<EditText>(R.id.et_ingredient_unit).getText().clear()
-            }
         }
 
+    }
+
+    fun requestNotificationPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "recipe_channel",
+                "Recipe Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val notificationManager =
+                activity.getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }
