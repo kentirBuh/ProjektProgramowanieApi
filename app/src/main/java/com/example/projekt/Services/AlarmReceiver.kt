@@ -1,5 +1,6 @@
 package com.example.projekt.Services
 
+
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,15 +13,26 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.projekt.Model.Recipe
 import com.example.projekt.R
 import com.example.projekt.RecipeDetailActivity
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AlarmReceiver : BroadcastReceiver() {
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onReceive(context: Context, intent: Intent) {
-        Log.e("recieved?","yup")
+        Log.e("Received?", "Yes")
         val recipe = intent.getParcelableExtra<Recipe>("recipe")
 
         if (recipe != null) {
+            // Show notification
             showNotification(context, recipe)
+
+
+            GlobalScope.launch(Dispatchers.IO) {
+                ScheduleAlarm.removeAlarm(context, recipe)
+            }
         } else {
             Log.e("AlarmReceiver", "Recipe is null")
         }
@@ -28,7 +40,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     @SuppressLint("MissingPermission")
     private fun showNotification(context: Context, recipe: Recipe) {
-        Log.e("showing notification","1")
+        Log.e("Showing notification", "1")
         val intent = Intent(context, RecipeDetailActivity::class.java).apply {
             putExtra("recipe", recipe)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -47,10 +59,8 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .addAction(R.drawable.ic_launcher_foreground, "Open Recipe", pendingIntent)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC) // Ensure visibility is set
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .build()
-
-        Log.e("after notification","success?")
 
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(recipe.id, notification)

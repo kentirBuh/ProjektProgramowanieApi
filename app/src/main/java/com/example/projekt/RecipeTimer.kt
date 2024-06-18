@@ -9,12 +9,18 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.projekt.DataBase.RecipeDatabase
 import com.example.projekt.Model.Recipe
 import com.example.projekt.Services.ScheduleAlarm
 import com.example.projekt.Services.ScheduleAlarm.Companion.scheduleAlarm
 import com.example.projekt.Services.createNotificationChannel
+import com.example.projekt.ViewModels.DisplayAlarmsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 
@@ -72,31 +78,41 @@ class RecipeTimer : AppCompatActivity() {
             // Add more recipes as needed
         )
 
-        val recipeNames = recipes.map { it.name }.toTypedArray()
-        val autoCompleteAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_dropdown_item_1line,
-            recipeNames
-        )
-        autoCompleteTextView.setAdapter(autoCompleteAdapter)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val recipes = RecipeDatabase.getInstance(this@RecipeTimer).recipeDao().getAllRecipe()
+            val recipeNames = recipes.map { it.name }.toTypedArray()
 
-        autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
-            selectedRecipe = recipes[position]
-        }
+            withContext(Dispatchers.Main) {
+                // Set up AutoCompleteTextView adapter
+                val autoCompleteAdapter = ArrayAdapter(
+                    this@RecipeTimer,
+                    android.R.layout.simple_dropdown_item_1line,
+                    recipeNames
+                )
+                autoCompleteTextView.setAdapter(autoCompleteAdapter)
 
-        submitButton.setOnClickListener {
-            // Check if selectedRecipe is initialized
-            if (selectedRecipe != null) {
-                Log.d("NotificationTest", "Button is clicked")
-                val calendar = Calendar.getInstance().apply {
-                    set(datePicker.year, datePicker.month, datePicker.dayOfMonth,
-                        timePicker.hour, timePicker.minute, 0)
+                autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+                    selectedRecipe = recipes[position]
                 }
-                Log.d("timeInMillis", calendar.timeInMillis.toString())
-                scheduleAlarm(this@RecipeTimer, selectedRecipe!!, calendar.timeInMillis)
-            } else {
-                Log.e("NotificationTest", "Selected recipe is null")
-                // Handle the case where no recipe is selected
+
+                submitButton.setOnClickListener {
+                    // Check if selectedRecipe is initialized
+                    if (selectedRecipe != null) {
+                        Log.d("NotificationTest", "Button is clicked")
+                        val calendar = Calendar.getInstance().apply {
+                            set(datePicker.year, datePicker.month, datePicker.dayOfMonth,
+                                timePicker.hour, timePicker.minute, 0)
+                        }
+                        Log.d("timeInMillis", calendar.timeInMillis.toString())
+                        scheduleAlarm(this@RecipeTimer, selectedRecipe!!, calendar.timeInMillis)
+
+                        val intent = Intent(this@RecipeTimer, DisplayAlarmsActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Log.e("NotificationTest", "Selected recipe is null")
+
+                    }
+                }
             }
         }
     }

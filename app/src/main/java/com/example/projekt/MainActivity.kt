@@ -63,11 +63,8 @@ class MainActivity : ComponentActivity() {
                 }
 
                 R.id.navigation_view -> {
-                    startActivity(Intent(this@MainActivity, RecipeTimer::class.java))
+                    startActivity(Intent(this@MainActivity, RecipeListActivity::class.java))
                     true
-                    //uncomment and replace later
-                   // startActivity(Intent(this@MainActivity, RecipeListActivity::class.java))
-                    //true
                 }
 
                 else -> false

@@ -70,7 +70,7 @@ class RecipeListActivity : AppCompatActivity() {
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedRecipe = recipes[position]
             val intent = Intent(this, RecipeDetailActivity::class.java)
-            intent.putExtra("recipe", selectedRecipe) // Pass the Recipe object directly
+            intent.putExtra("recipe", selectedRecipe)
             startActivity(intent)
         }
     }

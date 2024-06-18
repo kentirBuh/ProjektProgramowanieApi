@@ -1,6 +1,7 @@
 package com.example.projekt.ViewModels
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -9,7 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projekt.Model.Recipe
 import com.example.projekt.R
+import com.example.projekt.RecipeTimer
 import com.example.projekt.Services.ScheduleAlarm
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DisplayAlarmsActivity : AppCompatActivity() {
 
@@ -36,6 +39,11 @@ class DisplayAlarmsActivity : AppCompatActivity() {
         )
 
         alarmListView.adapter = adapter
+
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener {
+            startActivity(Intent(this, RecipeTimer::class.java))
+        }
 
         alarmListView.setOnItemClickListener { parent, view, position, id ->
             val selectedRecipe = scheduledAlarms[position]
