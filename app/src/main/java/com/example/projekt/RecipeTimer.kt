@@ -1,5 +1,6 @@
 package com.example.projekt
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -12,6 +13,8 @@ import com.example.projekt.Model.Recipe
 import com.example.projekt.Services.ScheduleAlarm
 import com.example.projekt.Services.ScheduleAlarm.Companion.scheduleAlarm
 import com.example.projekt.Services.createNotificationChannel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import java.util.*
 
 
@@ -39,6 +42,26 @@ class RecipeTimer : AppCompatActivity() {
         datePicker = findViewById(R.id.datePicker)
         timePicker = findViewById(R.id.timePicker)
         submitButton = findViewById(R.id.submitButton)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_timer -> {
+                    true
+                }
+
+                R.id.navigation_create -> {
+                    startActivity(Intent(this@RecipeTimer, MainActivity::class.java))
+                    true
+                }
+
+                R.id.navigation_view -> {
+                    startActivity(Intent(this@RecipeTimer, RecipeListActivity::class.java))
+                    true
+                }
+
+                else -> false
+            }
+        })
 
         scheduleAlarm = ScheduleAlarm()
 

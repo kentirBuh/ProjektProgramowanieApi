@@ -1,11 +1,16 @@
 package com.example.projekt
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projekt.Model.Recipe
+import com.example.projekt.R.id
+import com.example.projekt.ViewModels.DisplayAlarmsActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class RecipeDetailActivity : AppCompatActivity() {
 
@@ -18,10 +23,11 @@ class RecipeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_detail)
 
-        textRecipeName = findViewById(R.id.text_recipe_name)
-        textCookingTime = findViewById(R.id.text_cooking_time)
-        textInstructions = findViewById(R.id.text_instructions)
-        containerIngredients = findViewById(R.id.container_ingredients)
+        textRecipeName = findViewById(id.text_recipe_name)
+        textCookingTime = findViewById(id.text_cooking_time)
+        textInstructions = findViewById(id.text_instructions)
+        containerIngredients = findViewById(id.container_ingredients)
+        val bottomNavigationView = findViewById<BottomNavigationView>(id.bottom_navigation)
 
         val recipe = intent.getParcelableExtra<Recipe>("recipe")
 
@@ -41,5 +47,27 @@ class RecipeDetailActivity : AppCompatActivity() {
             Log.e("RecipeDetailActivity", "Recipe object is null")
             finish() // Close the activity as it cannot function without the recipe data
         }
+
+        bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_timer -> {
+                    startActivity(Intent(this@RecipeDetailActivity, DisplayAlarmsActivity::class.java))
+                    true
+                }
+
+                R.id.navigation_create -> {
+                    startActivity(Intent(this@RecipeDetailActivity, MainActivity::class.java))
+                    true
+                }
+
+                R.id.navigation_view -> {
+                    startActivity(Intent(this@RecipeDetailActivity, RecipeTimer::class.java))
+                    true
+
+                }
+
+                else -> false
+            }
+        })
     }
 }
