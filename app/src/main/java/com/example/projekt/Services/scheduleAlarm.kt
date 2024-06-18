@@ -90,7 +90,7 @@ class ScheduleAlarm {
             editor.apply()
         }
 
-        private fun removeAlarm(context: Context, recipe: Recipe) {
+        fun removeAlarm(context: Context, recipe: Recipe) {
             val sharedPreferences = context.getSharedPreferences(ALARM_PREFS, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             val alarms = getScheduledAlarms(context).toMutableList()
@@ -100,23 +100,7 @@ class ScheduleAlarm {
             editor.apply()
         }
 
-        fun cancelAlarm(context: Context, recipe: Recipe) {
-            val intent = Intent(context, AlarmReceiver::class.java)
-            val requestCode = ALARM_REQUEST_CODE_PREFIX + recipe.id
 
-            val pendingIntent = PendingIntent.getBroadcast(
-                context,
-                requestCode,
-                intent,
-                PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE // Pass FLAG_NO_CREATE to get the existing PendingIntent or null if not found
-            )
-
-            pendingIntent?.let {
-                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                alarmManager.cancel(it)
-                it.cancel()
-            }
-        }
 
     }
 }
