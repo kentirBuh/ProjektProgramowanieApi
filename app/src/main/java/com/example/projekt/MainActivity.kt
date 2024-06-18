@@ -1,8 +1,11 @@
 package com.example.projekt
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
@@ -11,6 +14,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.projekt.DataBase.IngredientDao
@@ -21,6 +26,7 @@ import com.example.projekt.Services.createNotificationChannel
 import com.example.projekt.ViewModels.DisplayAlarmsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -137,7 +143,7 @@ class MainActivity : ComponentActivity() {
                 ingredientRow.findViewById<EditText>(R.id.et_ingredient_quantity).getText().clear()
                 ingredientRow.findViewById<EditText>(R.id.et_ingredient_unit).getText().clear()
             }
-
+            showRecipeCreatedSnackbar()
         }
 
     }
@@ -154,4 +160,17 @@ class MainActivity : ComponentActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+    private fun showRecipeCreatedSnackbar() {
+        val snackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            "Recipe successfully created!",
+            Snackbar.LENGTH_LONG
+        )
+
+        snackbar.setBackgroundTint(resources.getColor(R.color.black) )
+
+        snackbar.show()
+    }
 }
+
