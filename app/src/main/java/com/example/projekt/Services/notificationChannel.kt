@@ -5,7 +5,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 
-fun createNotificationChannel(context: Context) {
+fun createNotificationChannel(context: Context) { //Needed to create notifications
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val name = "Recipe Channel"
         val descriptionText = "Channel for recipe notifications"

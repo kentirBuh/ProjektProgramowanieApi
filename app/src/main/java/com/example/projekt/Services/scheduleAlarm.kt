@@ -12,7 +12,7 @@ import android.content.pm.PackageManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ScheduleAlarm {
+class ScheduleAlarm { //used for linking Recipe objects to alarms
     companion object {
         private const val ALARM_REQUEST_CODE_PREFIX = 1000
         private const val ALARM_PREFS = "alarm_prefs"

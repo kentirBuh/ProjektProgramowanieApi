@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
 import androidx.room.PrimaryKey
 
 @Serializable
-@Entity(tableName = "ingredients")
+@Entity(tableName = "ingredients") //Model for Ingredient
 data class Ingredient(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val quantity: Double,
     val unit: String
-) : Parcelable {
+) : Parcelable { //Added parceling
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",

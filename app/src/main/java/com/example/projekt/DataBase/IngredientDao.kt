@@ -7,7 +7,7 @@ import com.example.projekt.Model.Ingredient
 import com.example.projekt.Model.Recipe
 
 @Dao
-interface IngredientDao
+interface IngredientDao //SQL query's for Room
 {
     @Query("Select * from INGREDIENTS")
     fun getAllIngredient() : List<Ingredient>

@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RecipeListActivity : AppCompatActivity() {
+class RecipeListActivity : AppCompatActivity() { //returns a list of saved recipes
 
     private lateinit var listView: ListView
     private lateinit var recipeDao: RecipeDao

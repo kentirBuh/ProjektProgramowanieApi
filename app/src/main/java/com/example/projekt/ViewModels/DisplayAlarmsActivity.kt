@@ -18,7 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 
-class DisplayAlarmsActivity : AppCompatActivity() {
+class DisplayAlarmsActivity : AppCompatActivity() {//responsible for displaying all current alarms, updating the list
+    // , and deleting them from the UI level
 
     private lateinit var alarmListView: ListView
     private lateinit var adapter: ArrayAdapter<String>
@@ -31,10 +32,10 @@ class DisplayAlarmsActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
 
-        // Initialize ListView
+
         alarmListView = findViewById(R.id.alarmListView)
 
-        // Fetch scheduled alarms
+        //Get alarms
         scheduledAlarms = ScheduleAlarm.getScheduledAlarms(this)
         Log.d("DisplayAlarmsActivity", "Alarm names: ${scheduledAlarms.toString()}")
         val alarmNames = scheduledAlarms.map { it.name }

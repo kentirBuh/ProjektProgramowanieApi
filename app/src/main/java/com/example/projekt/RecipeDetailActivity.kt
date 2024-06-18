@@ -12,7 +12,7 @@ import com.example.projekt.ViewModels.DisplayAlarmsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
-class RecipeDetailActivity : AppCompatActivity() {
+class RecipeDetailActivity : AppCompatActivity() { //used for displaying all the details of a recipe
 
     private lateinit var textRecipeName: TextView
     private lateinit var textCookingTime: TextView

@@ -31,7 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {//handles adding recipes to the database and creating them
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
                 )
                 ingredients.add(ingredient)
             }
-            lifecycleScope.launch(Dispatchers.IO) {
+            lifecycleScope.launch(Dispatchers.IO) {//adding the recipe to the DB
                 db.recipeDao().addIngredients(ingredients)
             }
 

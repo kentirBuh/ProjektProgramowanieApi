@@ -24,14 +24,14 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 
-class RecipeTimer : AppCompatActivity() {
+class RecipeTimer : AppCompatActivity() { //unused. We tried to add a timer, but instead we implemented an alarm
 
     private lateinit var autoCompleteTextView: AutoCompleteTextView
     private lateinit var datePicker: DatePicker
     private lateinit var timePicker: TimePicker
     private lateinit var submitButton: Button
 
-    private var selectedRecipe: Recipe? = null // Initialize as nullable
+    private var selectedRecipe: Recipe? = null
 
     private lateinit var scheduleAlarm: ScheduleAlarm
 

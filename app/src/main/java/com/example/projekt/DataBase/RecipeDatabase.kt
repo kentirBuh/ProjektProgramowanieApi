@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.projekt.Model.Ingredient
 import com.example.projekt.Model.Recipe
 
-@Database(entities = [Recipe::class, Ingredient::class], version = 1)
+@Database(entities = [Recipe::class, Ingredient::class], version = 1) //Creates a Database object for room
 @TypeConverters(Converters::class)
 abstract class RecipeDatabase : RoomDatabase() {
 

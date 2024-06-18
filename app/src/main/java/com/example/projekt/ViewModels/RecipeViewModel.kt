@@ -3,7 +3,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projekt.Model.Recipe
 
-class RecipeViewModel : ViewModel() {
+class RecipeViewModel : ViewModel() { //unused
     private val selectedRecipe = MutableLiveData<Recipe>()
 
     fun selectRecipe(recipe: Recipe) {

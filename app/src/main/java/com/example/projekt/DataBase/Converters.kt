@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 
 class Converters {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true } //converters for all the types in the project
 
     @TypeConverter
     fun fromIngredientList(value: List<Ingredient>): String {

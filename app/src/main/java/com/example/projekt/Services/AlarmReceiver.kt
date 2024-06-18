@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class AlarmReceiver : BroadcastReceiver() {
 
     @OptIn(DelicateCoroutinesApi::class)
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(context: Context, intent: Intent) { //used for handling alarms and deleting them from the schedule
         Log.e("Received?", "Yes")
         val recipe = intent.getParcelableExtra<Recipe>("recipe")
 
