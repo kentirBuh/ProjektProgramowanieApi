@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.projekt.DataBase.RecipeDao
 import com.example.projekt.DataBase.RecipeDatabase
 import com.example.projekt.Model.Recipe
+import com.example.projekt.ViewModels.DisplayAlarmsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +46,7 @@ class RecipeListActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_timer -> {
-                    startActivity(Intent(this@RecipeListActivity, RecipeTimer::class.java))
+                    startActivity(Intent(this@RecipeListActivity, DisplayAlarmsActivity::class.java))
                     true
                 }
                 R.id.navigation_create -> {
