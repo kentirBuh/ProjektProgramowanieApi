@@ -71,11 +71,10 @@ class RecipeTimer : AppCompatActivity() {
 
         scheduleAlarm = ScheduleAlarm()
 
-        // Simulated list of recipes; replace with your actual list or network call
+        // testowa lista -
         val recipes = listOf(
             Recipe(1, "Recipe 1", 30, "Instructions", emptyList()),
             Recipe(2, "Recipe 2", 45, "Instructions", emptyList())
-            // Add more recipes as needed
         )
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -83,7 +82,6 @@ class RecipeTimer : AppCompatActivity() {
             val recipeNames = recipes.map { it.name }.toTypedArray()
 
             withContext(Dispatchers.Main) {
-                // Set up AutoCompleteTextView adapter
                 val autoCompleteAdapter = ArrayAdapter(
                     this@RecipeTimer,
                     android.R.layout.simple_dropdown_item_1line,
@@ -96,7 +94,6 @@ class RecipeTimer : AppCompatActivity() {
                 }
 
                 submitButton.setOnClickListener {
-                    // Check if selectedRecipe is initialized
                     if (selectedRecipe != null) {
                         Log.d("NotificationTest", "Button is clicked")
                         val calendar = Calendar.getInstance().apply {
@@ -110,7 +107,6 @@ class RecipeTimer : AppCompatActivity() {
                         startActivity(intent)
                     } else {
                         Log.e("NotificationTest", "Selected recipe is null")
-
                     }
                 }
             }

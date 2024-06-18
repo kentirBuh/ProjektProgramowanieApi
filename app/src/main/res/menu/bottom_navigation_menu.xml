@@ -4,8 +4,7 @@
     <item
         android:id="@+id/navigation_create"
         android:title="Create"
-        android:icon="@drawable/baseline_add_24"
-        />
+        android:icon="@drawable/baseline_add_24" />
 
     <item
         android:id="@+id/navigation_timer"

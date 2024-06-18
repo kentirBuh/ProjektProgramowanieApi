@@ -78,7 +78,6 @@ class MainActivity : ComponentActivity() {
         })
 
         btnAddIngredient.setOnClickListener {
-            // Inflate a new ingredient row
             val ingredientRow = layoutInflater.inflate(R.layout.ingredient_row, null)
             ingredientsContainer.addView(ingredientRow)
         }

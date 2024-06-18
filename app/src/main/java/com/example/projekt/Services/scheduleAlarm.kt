@@ -36,7 +36,7 @@ class ScheduleAlarm {
             val intent = Intent(context, AlarmReceiver::class.java).apply {
                 putExtra("recipe", recipe)
             }
-            val requestCode = recipe.id // Use unique request code
+            val requestCode = recipe.id
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
                 requestCode,
@@ -48,7 +48,7 @@ class ScheduleAlarm {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 try {
-                    // Check if the app has the SCHEDULE_EXACT_ALARM permission
+
                     val packageManager = context.packageManager
                     val hasExactAlarmPermission = packageManager.checkPermission(
                         "android.permission.SCHEDULE_EXACT_ALARM",
@@ -62,16 +62,13 @@ class ScheduleAlarm {
                             pendingIntent
                         )
                     } else {
-                        // Handle lack of permission gracefully
                         Log.e(
                             "ScheduleAlarm",
                             "Cannot schedule exact alarms: permission not granted"
                         )
-                        // Optionally, notify the user or use approximate alarm scheduling
                     }
                 } catch (e: Exception) {
                     Log.e("ScheduleAlarm", "Error checking exact alarm permission: ${e.message}")
-                    // Handle exception
                 }
             } else {
                 alarmManager.setExact(
@@ -83,7 +80,7 @@ class ScheduleAlarm {
             val sharedPreferences = context.getSharedPreferences(ALARM_PREFS, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             val alarms = getScheduledAlarms(context).toMutableList().apply {
-                add(recipe) // Add new recipe to the list
+                add(recipe)
             }
             val gson = Gson()
             editor.putString(ALARMS_KEY, gson.toJson(alarms))
@@ -99,8 +96,6 @@ class ScheduleAlarm {
             editor.putString(ALARMS_KEY, gson.toJson(alarms))
             editor.apply()
         }
-
-
 
     }
 }

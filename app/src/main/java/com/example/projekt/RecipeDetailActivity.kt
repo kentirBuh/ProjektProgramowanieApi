@@ -43,9 +43,8 @@ class RecipeDetailActivity : AppCompatActivity() {
                 containerIngredients.addView(textView)
             }
         } else {
-            // Handle the case when the recipe is null
             Log.e("RecipeDetailActivity", "Recipe object is null")
-            finish() // Close the activity as it cannot function without the recipe data
+            finish()
         }
 
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->

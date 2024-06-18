@@ -26,9 +26,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val recipe = intent.getParcelableExtra<Recipe>("recipe")
 
         if (recipe != null) {
-            // Show notification
             showNotification(context, recipe)
-
 
             GlobalScope.launch(Dispatchers.IO) {
                 ScheduleAlarm.removeAlarm(context, recipe)

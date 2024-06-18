@@ -45,7 +45,7 @@ class RecipeListActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_timer -> {
-                    startActivity(Intent(this@RecipeListActivity, TimerActivity::class.java))
+                    startActivity(Intent(this@RecipeListActivity, RecipeTimer::class.java))
                     true
                 }
                 R.id.navigation_create -> {

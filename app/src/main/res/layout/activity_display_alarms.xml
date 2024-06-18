@@ -30,6 +30,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="100dp"
             android:layout_marginRight="32dp"
-            android:src="@drawable/round_shape"
+            android:src="@drawable/baseline_add_24"
             android:contentDescription="Go to Recipe Timer"/>
 </RelativeLayout>

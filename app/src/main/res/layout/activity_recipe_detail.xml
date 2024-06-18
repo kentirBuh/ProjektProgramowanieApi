@@ -1,4 +1,3 @@
-<!-- activity_recipe_detail.xml -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-            <!-- Recipe Name -->
 
             <TextView
                     android:id="@+id/text_recipe_name"
@@ -41,7 +39,6 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
 
-            <!-- Cooking Time -->
             <TextView
                     android:id="@+id/text_cooking_time"
                     android:layout_width="match_parent"
@@ -49,7 +46,6 @@
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
 
-            <!-- Instructions -->
             <TextView
                     android:id="@+id/text_instructions"
                     android:layout_width="match_parent"
@@ -57,7 +53,6 @@
                     android:textSize="16sp"
                     android:layout_marginBottom="16dp" />
 
-            <!-- Ingredients Header -->
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,7 +61,6 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
 
-            <!-- List of Ingredients -->
             <LinearLayout
                     android:id="@+id/container_ingredients"
                     android:layout_width="match_parent"

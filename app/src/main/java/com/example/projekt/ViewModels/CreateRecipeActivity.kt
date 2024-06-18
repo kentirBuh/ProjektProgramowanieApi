@@ -56,8 +56,6 @@ class CreateRecipeActivity : AppCompatActivity() {
                 instructions = instructions,
                 ingredients = ingredients
             )
-
-            // Handle saving the recipe object, e.g., save to database or pass to another activity
         }
     }
 }

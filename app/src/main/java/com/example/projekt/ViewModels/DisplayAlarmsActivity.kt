@@ -8,11 +8,15 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.projekt.MainActivity
 import com.example.projekt.Model.Recipe
 import com.example.projekt.R
+import com.example.projekt.RecipeListActivity
 import com.example.projekt.RecipeTimer
 import com.example.projekt.Services.ScheduleAlarm
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationBarView
 
 class DisplayAlarmsActivity : AppCompatActivity() {
 
@@ -23,6 +27,9 @@ class DisplayAlarmsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_alarms)
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
 
         // Initialize ListView
         alarmListView = findViewById(R.id.alarmListView)
@@ -49,6 +56,27 @@ class DisplayAlarmsActivity : AppCompatActivity() {
             val selectedRecipe = scheduledAlarms[position]
             showDeleteDialog(selectedRecipe)
         }
+
+        bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_timer -> {
+                    startActivity(Intent(this@DisplayAlarmsActivity, RecipeTimer::class.java))
+                    true
+                }
+
+                R.id.navigation_create -> {
+                    startActivity(Intent(this@DisplayAlarmsActivity, MainActivity::class.java))
+                    true
+                }
+
+                R.id.navigation_view -> {
+                    startActivity(Intent(this@DisplayAlarmsActivity, RecipeListActivity::class.java))
+                    true
+                }
+
+                else -> false
+            }
+        })
     }
 
     private fun showDeleteDialog(recipe: Recipe) {
@@ -56,9 +84,7 @@ class DisplayAlarmsActivity : AppCompatActivity() {
         builder.setTitle("Delete Alarm")
             .setMessage("Are you sure you want to delete this alarm?")
             .setPositiveButton("Delete") { dialog, which ->
-                // User confirmed deletion, call removeAlarm function
                 ScheduleAlarm.removeAlarm(this, recipe)
-                // Update list view
                 scheduledAlarms = ScheduleAlarm.getScheduledAlarms(this)
                 updateListView()
             }

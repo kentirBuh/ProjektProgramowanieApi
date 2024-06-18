@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Recipe Name -->
             <EditText
                 android:id="@+id/et_recipe_name"
                 android:layout_width="match_parent"
@@ -23,7 +22,6 @@
                 android:hint="Recipe Name"
                 android:inputType="text" />
 
-            <!-- Cooking Time -->
             <EditText
                 android:id="@+id/et_cooking_time"
                 android:layout_width="match_parent"
@@ -31,7 +29,6 @@
                 android:hint="Cooking Time (minutes)"
                 android:inputType="number" />
 
-            <!-- Instructions -->
             <EditText
                 android:id="@+id/et_instructions"
                 android:layout_width="match_parent"
@@ -41,14 +38,13 @@
                 android:minLines="4"
                 android:maxLines="6" />
 
-            <!-- Ingredients List -->
+
             <LinearLayout
                 android:id="@+id/ingredients_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Ingredient Template -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,14 +77,12 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Add Ingredient Button -->
             <Button
                 android:id="@+id/btn_add_ingredient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Ingredient" />
 
-            <!-- Save Recipe Button -->
             <Button
                 android:id="@+id/btn_save_recipe"
                 android:layout_width="wrap_content"
@@ -103,14 +97,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation" >
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="427dp"
-            android:text="TextView" />
-    </FrameLayout>
+        android:layout_above="@id/bottom_navigation" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
